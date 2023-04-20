@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../css/style.css">
+<title>Page Title</title>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+
+    </script>
+</head>
+<body>
+<header>
+  
+    <div id="img-button">
+
+    </div>
+    
+  <a href="./login.html" id="header_link"">log out</a>
+    <form id="search">
+        <input class="input-header">
+    </form>
+</header>
+<div style="min-height: 95%;display: flex; flex-direction: column;position: relative;">
+<aside>
+<h1>List of projects</h1>
+<div><button>topic 1</button><div>2</div></div>
+<div><button>topic 2</button><div>4</div></div>
+<a id="new_topic">new topic</a>
+</aside>
+</div>
+<!-- <section>
+<p>section 1</p>
+<div></div>
+<div></div>
+</section>
+  <div id='calendar' style="height:100px; width:650px; background:#FFFFFF; position: absolute; right: 0; margin-right: 20px;"></div>
+<a>add section</a> -->
+</body>
+</html>

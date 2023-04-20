@@ -1,46 +1,80 @@
-.form{
-    background: #F4A5A5;
-    height: auto;
-    width: 50%;
-    margin: auto;
-    
-    
-    padding: 20px;
-    /* justify-content:space-between;
-    display: flex; */
-}
-input {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 12px 20px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background: #A48282;
-  }
-button {
-    width: 25%;
-    height: 50px;
-    margin-bottom: 10px;
-    justify-content: center;
-    padding: 12px 20px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background: #A48282;
-    border-radius: 25px;
-  }
-.button{
-    display: flex;
-    justify-content: center;
+
+button{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    font-size: 30px;
 }
 
-.titles{
-    text-align: center;
+
+
+section{
+    background-color: #A48282;
+    width: 127px;
+    height: 50px;
 }
-.links{
-    text-align: center;
-    display: block;
+.calendar{
+    position: absolute;
+    right: 0;
+    height:100px; 
+    width:600px; 
+    background:#FFFFFF
+}
+
+header{
+    background-color: #A48282;
+    margin: 0;
+    position: relative;
+    min-height: 5%;
+}
+aside{
+    flex: 1 0 auto;
+    display: flex;
+
+    flex-direction: column;
+    width: 10%;
+    background-color: #f4a5a5c5;
+    margin: 0;
+}
+#img-button{
+    background-size: cover;
+    width: 35px;
+    height: 35px;
+    background-image: url("../images/menu.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+#header_link{
+    float: right;
+    margin-right: 50px;
+    font-size: 15pt;
+}
+body, html{
+    margin: 0;
+}
+html, body{
+    height: 100%;
+}
+#new_topic{
+    bottom: 5%;
+    left: 2%;
+    position: absolute;
+}
+
+/* #search{
+    width: 0;
+    min-width: 99%;
+    position:relative;
+} */
+aside>a{
+    padding-bottom: 10px;
+    padding-left: 5px;
+    font-size: 30px;
+}
+aside>a:hover{
+    font-size: 35px;
 }
