@@ -14,8 +14,10 @@ button{
 
 section{
     background-color: #A48282;
-    width: 127px;
-    height: 50px;
+    width: auto;
+    height: fit-content;
+    margin-right: 70px;
+    margin-top: 10px;
 }
 .calendar{
     position: absolute;
@@ -30,9 +32,10 @@ header{
     margin: 0;
     position: relative;
     min-height: 5%;
+
 }
 aside{
-    flex: 1 0 auto;
+    /* flex: 1 0 auto; */
     display: flex;
 
     flex-direction: column;
@@ -77,4 +80,81 @@ aside>a{
 }
 aside>a:hover{
     font-size: 35px;
+}
+.item_collection{
+    display: flex;
+}
+aside>div>div{
+    color: #FFFFFF;
+    font-size: 30px;
+}
+
+.edit{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/edit.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+.delete{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/trash.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+.edit_task{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/edit.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+.done_task{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/done.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+.trash_task{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/trash.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+.cross_task{
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/cross.png");
+    background-repeat: no-repeat;
+    position:relative;
+}
+
+.complete_task{
+    text-decoration: line-through;
+}
+
+.critical_priority{
+    background-color: #FF7070;
+}
+.high_priority{
+    background-color: orange;
+}
+.medium_priority{
+    background-color: #EAFF6A;
+}
+.low_priority{
+    background-color: yellowgreen;
+}
+
+.task, .complete_task{
+    margin: 15px;
 }

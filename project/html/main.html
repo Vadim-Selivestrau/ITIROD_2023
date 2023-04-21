@@ -1,47 +1,107 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" href="../css/style.css">
-<title>Page Title</title>
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
-    <script>
+  <link rel="stylesheet" href="../css/style.css">
+  <title>Page Title</title>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+  <script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
       });
+      calendar.render();
+    });
 
-    </script>
+  </script>
 </head>
+
 <body>
-<header>
-  
+  <header>
+
     <div id="img-button">
 
     </div>
-    
-  <a href="./login.html" id="header_link"">log out</a>
-    <form id="search">
-        <input class="input-header">
-    </form>
-</header>
-<div style="min-height: 95%;display: flex; flex-direction: column;position: relative;">
-<aside>
-<h1>List of projects</h1>
-<div><button>topic 1</button><div>2</div></div>
-<div><button>topic 2</button><div>4</div></div>
-<a id="new_topic">new topic</a>
-</aside>
-</div>
-<!-- <section>
-<p>section 1</p>
-<div></div>
-<div></div>
-</section>
-  <div id='calendar' style="height:100px; width:650px; background:#FFFFFF; position: absolute; right: 0; margin-right: 20px;"></div>
-<a>add section</a> -->
+
+    <a href="./login.html" id="header_link"">log out</a>
+    <form id=" search">
+      <input class="input-header">
+      </form>
+  </header>
+  <div style="min-height: 95%;display: flex; flex-direction: row;position: relative; justify-content: space-between;">
+    <aside>
+      <h1>List of projects</h1>
+      <div class="item_collection">
+        <button>topic 1</button>
+        <div>2</div>
+      </div>
+      <div class="item_collection">
+        <button>topic 2</button>
+        <div>4</div>
+      </div>
+      <button id="new_topic">new topic</button>
+    </aside>
+    <div style="display: flex;">
+      <section>
+        <article>section 1</article>
+        <div class="edit"></div>
+        <div class="delete"></div>
+        <div class="task critical_priority">
+          <article>make mockup</article>
+          <p>to do mockup in figma</p>
+          <div>14.04.2023</div>
+          <div class="done_task"></div>
+          <div class="edit_task"></div>
+          <div class="trash_task"></div>
+        </div>
+        <!-- medium_priority low_priority -->
+        <div class="complete_task medium_priority">
+          <article>task name</article>
+          <p>task description</p>
+          <div class="cross_task"></div>
+          <div class="edit_task"></div>
+          <div class="trash_task"></div>
+        </div>
+        <button>add task</button>
+      </section>
+      <section>
+        <article>section 2</article>
+        <div class="edit"></div>
+        <div class="delete"></div>
+        <div class="task low_priority">
+          <article>take a rest</article>
+          <p>buy medovukha and chill</p>
+          <div class="done_task"></div>
+          <div class="edit_task"></div>
+          <div class="trash_task"></div>
+        </div>
+        <div class="complete_task high_priority">
+          <article>task name</article>
+          <p>task description</p>
+          <div class="cross_task"></div>
+          <div class="edit_task"></div>
+          <div class="trash_task"></div>
+        </div>
+        <div class="new task">
+          <form>
+            <input>
+            <textarea></textarea>
+            <select></select>
+
+          </form>
+        </div>
+        <button>add task</button>
+        
+        <button>cancel</button>
+      </section>
+    </div>
+    <div id='calendar'
+      style="height:100px; margin-left: 60px; margin-top: 1%;width:25%; background:#FFFFFF; position: fixed; right: 0; margin-right: 20px; justify-content: center;"></div>
+    <button>add section</button>
+  </div>
+
 </body>
+
 </html>
