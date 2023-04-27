@@ -1,8 +1,12 @@
+body{
+    background-color: chocolate;
+}
 .form{
     background: #F4A5A5;
     height: auto;
     width: 50%;
     margin: auto;
+    margin-top: 10%;
     padding: 20px;
 }
 input[type=text],[type=password] {
@@ -17,7 +21,7 @@ input[type=text],[type=password] {
   }
   
 button {
-    width: 25%;
+    width: 50%;
     height: 50px;
     margin-bottom: 10px;
     justify-content: center;
@@ -40,3 +44,110 @@ button {
     text-align: center;
     display: inline-block;
 }
+h1{
+    margin-top: 10%;
+}
+@media screen and (min-width: 370px) and (min-height: 670px) {
+    body {
+      background-color: lightgreen;
+    }
+    .form{
+        background: #F4A5A5;
+        height: auto;
+        width: 50%;
+        margin: auto;
+        margin-top: 10%;
+        padding: 20px;
+    }
+    input[type=text],[type=password] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background: #A48282;
+      }
+      
+    button {
+        width: 25%;
+        height: 50px;
+        margin-bottom: 10px;
+        justify-content: center;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background: #A48282;
+        border-radius: 25px;
+      }.button{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .titles{
+        text-align: center;
+    }
+    .links{
+        text-align: center;
+        display: inline-block;
+    }
+    h1{
+        margin-top: 10%;
+    }
+  }
+  
+  @media screen and (min-width: 1600px) and (min-height: 1200px) {
+    body {
+        background-color: rgb(66, 204, 236);
+      }
+    .form{
+        background: #F4A5A5;
+        height: auto;
+        width: 50%;
+        margin: auto;
+        margin-top: 10%;
+        padding: 20px;
+    }
+    input[type=text],[type=password] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background: #A48282;
+      }
+      
+    button {
+        width: 25%;
+        height: 50px;
+        margin-bottom: 10px;
+        justify-content: center;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background: #A48282;
+        border-radius: 25px;
+      }.button{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .titles{
+        text-align: center;
+    }
+    .links{
+        text-align: center;
+        display: inline-block;
+    }
+    h1{
+        margin-top: 10%;
+    }
+  }
+
