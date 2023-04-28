@@ -1,15 +1,299 @@
 body {
-    background-color: red;
-  }
-  
-  @media screen and (min-width: 800px) {
+    background-color: #ed9b4a;
+}
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+section {
+    background-color: #A48282;
+    width: 200px;
+    height: fit-content;
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.new_task {
+    background-color: gray;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 20px;
+    padding: 10px;
+    padding-bottom: 10px;
+}
+
+#aside {
+    grid-area: ass;
+    background-color: #fff;
+}
+#calendar {
+    grid-area: clndr;
+    padding-left: 25px;
+    height: 300px;
+    width: 230px;
+}
+
+.tasks {
+    grid-area: tsks;
+}
+
+header {
+    grid-area: hdr;
+    background-color: #71de99;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 2fr;
+    /* grid-auto-rows: minmax(100px, auto); */
+    grid-template-areas:
+        "hdr hdr "
+        "ass clndr"
+        "ass tsks";
+}
+
+#img-button {
+    cursor: pointer;
+    padding: 15px;
+    margin: 0;
+    background-color: #333333;
+    color: white;
+    width: fit-content;
+}
+
+.item_collection {
+    display: flex;
+    justify-content: space-between
+}
+.add_task {
+    background-color: whitesmoke;
+    font-size: large;
+    display: block;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.item_collection>div {
+    width: fit-content;
+    margin-right: 20px;
+}
+#img-button {
+    background-size: cover;
+    width: 15px;
+    height: 15px;
+    background-image: url("../images/menu.png");
+    background-repeat: no-repeat;
+    /* position: relative; */
+}
+
+.item_collection {
+    display: flex;
+    justify-content: space-between;
+}
+#search {
+    width: fit-content;
+    display: flex;
+}
+
+#search>input {
+    width: 200px;
+    height: 20px;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+textarea{
+    resize: none;
+}
+.complete_task {
+    text-decoration: line-through;
+}
+
+.critical_priority {
+    background-color: #FF7070;
+}
+
+.high_priority {
+    background-color: orange;
+}
+
+.medium_priority {
+    background-color: #EAFF6A;
+}
+
+.low_priority {
+    background-color: yellowgreen;
+}
+.fc table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 12px;
+}
+.done_task {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/done.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.trash_task {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/trash.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.cross_task {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/cross.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.edit {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/edit.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.delete {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/trash.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.edit_task {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    background-image: url("../images/edit.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+.new_task>* {
+    margin: 2px;
+}
+
+.task,
+.complete_task {
+    margin: 15px;
+}
+
+
+form>div>button {
+    font-size: medium;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+.task_buttons {
+    display: flex;
+    justify-content: space-around;
+}
+body, html{
+    min-height: 100%;
+    height: 100%;
+    position: relative;
+}
+@media screen and (min-width: 671px) {
     body {
-      background-color: lightgreen;
+        background-color: #de71a4;
     }
-  }
-  
-  @media screen and (min-width: 1200px) {
+    .items {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-areas:
+            "ass ass tsks tsks tsks clndr clndr clndr"
+            "ass ass tsks tsks tsks . . ."
+            "ass ass tsks tsks tsks . . ."
+            "ass ass tsks tsks tsks . . .";
+
+    }
+    section{
+        min-width: 200px;
+    }
+    #calendar{
+        width:auto;
+        height: auto;
+        
+    }
+    .tasks {
+        display: flex;
+        flex-direction: row;
+    }
+    aside>button{
+        font-size: 25px;
+    }
+    aside>div>*{
+        font-size: 25px;
+    }
+    .items{
+        min-height: 100%;
+    }
+
+}
+@media screen and (max-width: 1200px) {
+    .items {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-areas:
+            "hdr hdr hdr"
+            "ass clndr clndr"
+        "ass tsks tsks";
+
+    }
+
+}
+
+
+
+
+@media screen and (min-width: 1601px) {
     body {
-      background-color: lavender;
+        background-color: #7194de;  
     }
-  }
+    section{
+        min-width: 270px;
+    }
+    section>*{
+        font-size: x-large;
+    }
+    section>.new_task>*{
+        font-size: x-large;
+    }
+    
+    
+}

@@ -2,7 +2,9 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="../css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="../css/test.css">
   <title>Page Title</title>
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
   <script>
@@ -19,19 +21,20 @@
 </head>
 
 <body>
+
   <header>
 
-    <div id="img-button">
 
-    </div>
-
-    <a href="./login.html" id="header_link">log out</a>
-    <form id=" search">
+    <form id="search">
+      <div id="img-button" onclick="toggleAside()">
+        !!!
+      </div>
       <input class="input-header">
-      </form>
+    </form>
+    <a href="./login.html" id="header_link">log out</a>
   </header>
-  <div class= "items">
-    <aside>
+  <div class="items" id="items">
+    <aside id="aside">
       <h1>List of projects</h1>
       <div class="item_collection">
         <button>topic 1</button>
@@ -42,8 +45,8 @@
         <div>4</div>
       </div>
       <button id="new_topic">new topic</button>
-      
-    <button class="new_section">add section</button>
+
+      <button class="new_section">add section</button>
     </aside>
     <div class="tasks">
       <section>
@@ -54,21 +57,21 @@
           <article>make mockup</article>
           <p>to do mockup in figma</p>
           <div>14.04.2023</div>
-          
+
           <div class="task_buttons">
-          <div class="done_task"></div>
-          <div class="edit_task"></div>
-          <div class="trash_task"></div>
+            <div class="done_task"></div>
+            <div class="edit_task"></div>
+            <div class="trash_task"></div>
           </div>
         </div>
         <div class="complete_task medium_priority">
           <article>task name</article>
           <p>task description</p>
           <div class="task_buttons">
-          <div class="cross_task"></div>
-          <div class="edit_task"></div>
-          <div class="trash_task"></div>
-        </div>
+            <div class="cross_task"></div>
+            <div class="edit_task"></div>
+            <div class="trash_task"></div>
+          </div>
         </div>
         <button class="add_task">add task</button>
       </section>
@@ -79,43 +82,59 @@
         <div class="task low_priority">
           <article>take a rest</article>
           <p>buy medovukha and chill</p>
-          
+
           <div class="task_buttons">
-          <div class="done_task"></div>
-          <div class="edit_task"></div>
-          <div class="trash_task"></div>
+            <div class="done_task"></div>
+            <div class="edit_task"></div>
+            <div class="trash_task"></div>
           </div>
         </div>
         <div class="complete_task high_priority">
           <article>task name</article>
           <p>task description</p>
           <div class="task_buttons">
-          <div class="cross_task"></div>
-          <div class="edit_task"></div>
-          <div class="trash_task"></div>
+            <div class="cross_task"></div>
+            <div class="edit_task"></div>
+            <div class="trash_task"></div>
           </div>
         </div>
-          <form class="new_task">
-            <input placeholder="task name">
-            <textarea placeholder="task description" ></textarea>
-            <select name="set_priority" id="priority" >
-              <option value="" disabled selected hidden>Set priority</option>
-              <option value="criticial_priority">Crtiticial priority</option>
-              <option value="high_priority">High priority</option>
-              <option value="medium_priority">Medium priority</option>
-              <option value="low_priority">Low priority</option>
-            </select>
-            <input type="date" placeholder="task deadline">
-            <div class="buttons">
-              <button>add task</button>
-              
-              <button>cancel</button></div>
-          </form>
+        <form class="new_task">
+          <input placeholder="task name">
+          <textarea placeholder="task description"></textarea>
+          <select name="set_priority" id="priority">
+            <option value="" disabled selected hidden>Set priority</option>
+            <option value="criticial_priority">Crtiticial priority</option>
+            <option value="high_priority">High priority</option>
+            <option value="medium_priority">Medium priority</option>
+            <option value="low_priority">Low priority</option>
+          </select>
+          <input type="date" placeholder="task deadline">
+          <div class="buttons">
+            <button>add task</button>
+
+            <button>cancel</button>
+          </div>
+        </form>
       </section>
     </div>
     <div id='calendar'></div>
   </div>
 
+
+  <script>
+    function toggleAside() {
+      const items = document.getElementById("items").style
+      if (items.gridTemplateColumns !== "1fr") {
+        items.gridTemplateAreas = '"hrd" "clndr" "tsks"'
+        items.gridTemplateColumns = "1fr"
+        document.getElementById("aside").style.display = "none"
+      } else {
+        items.gridTemplateColumns = "repeat(4, 1fr)"
+        items.gridTemplateAreas = '"hrd hrd hrd hrd"  "ass clndr . ." "ass tsks tsks tsks"'
+        document.getElementById("aside").style.display = "block"
+      }
+    }
+  </script>
 </body>
 
 </html>
