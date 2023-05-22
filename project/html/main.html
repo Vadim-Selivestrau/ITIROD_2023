@@ -31,7 +31,7 @@
       <div id="img-button" onclick="toggleAside()">
         !!!
       </div>
-      <input class="input-header">
+      <input class="input-header" oninput="filterItems()">
     </form>
     <a href="./login.html" id="header_link">log out</a>
   </header>
@@ -146,6 +146,24 @@
   <script>
 
 
+function filterItems() {
+  // Получаем значение из поля input
+  const inputValue = document.querySelector('.input-header').value.toLowerCase();
+
+  // Получаем все элементы коллекции
+  const itemElements = document.querySelectorAll('.item_collection');
+
+  // Перебираем элементы и скрываем или отображаем в соответствии с введенным значением
+  itemElements.forEach(function(item) {
+    const button = item.querySelector('button');
+    const buttonText = button.textContent.toLowerCase();
+    if (buttonText.includes(inputValue)) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
 
 
     // document.getElementsByClassName("add_task").addEventListener("click", function (event) {
