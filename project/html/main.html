@@ -3,7 +3,8 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <script src="../js/drag_n_drop.js"></script>
+  <script src="../js/drag_n_drop_sections.js"></script>
   <link rel="stylesheet" href="../css/test.css">
   <title>Page Title</title>
   <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script> -->
@@ -49,404 +50,135 @@
       <button class="new_section">add section</button>
     </aside>
     <div class="tasks">
-      
-      <ul class="tasks_list">
-      <section>
-        <div class="header_section">
-          <article>section 1</article>
-          <div class="edit"></div>
-          <div class="delete"></div>
-        </div>
+
+      <ul id="tasks_list">
+        <section class="column">
+          <div class="header_section">
+            <article>section 1</article>
+            <div class="edit"></div>
+            <div class="delete"></div>
+          </div>
           <li class="tasks_item">
             <div class="task critical_priority">
               <article>make mockup</article>
               <p>to do mockup in figma</p>
               <div>14.04.2023</div>
+            </div>
+            <div class="task_buttons">
+              <div class="done_task"></div>
+              <div class="edit_task"></div>
+              <div class="trash_task"></div>
 
-              <div class="task_buttons">
-                <div class="done_task"></div>
-                <div class="edit_task"></div>
-                <div class="trash_task"></div>
-              </div>
             </div>
           </li>
           <li class="tasks_item">
             <div class="complete_task medium_priority">
               <article>task name</article>
               <p>task description</p>
-              <div class="task_buttons">
-                <div class="cross_task"></div>
-                <div class="edit_task"></div>
-                <div class="trash_task"></div>
-              </div>
             </div>
-          </li>
-        <button class="add_task">add task</button>
-      </section>
-      <section>
-        <div class="header_section">
-          <article>section 2</article>
-          <div class="edit"></div>
-          <div class="delete"></div>
-        </div>
-          <li class="tasks_item">
-            <div class="task low_priority">
-              <article>take a rest</article>
-              <p>buy medovukha and chill</p>
-              <div class="task_buttons">
-                <div class="done_task"></div>
-                <div class="edit_task"></div>
-                <div class="trash_task"></div>
-              </div>
-            </div>
-          </li>
-          <li class="tasks_item">
-          <div class="complete_task high_priority">
-            <article>task name</article>
-            <p>task description</p>
             <div class="task_buttons">
               <div class="cross_task"></div>
               <div class="edit_task"></div>
               <div class="trash_task"></div>
-            </div>
-          </div>
-          </li>
-        <form class="new_task">
-          <input placeholder="task name">
-          <textarea placeholder="task description"></textarea>
-          <select name="set_priority" id="priority">
-            <option value="" disabled selected hidden>Set priority</option>
-            <option value="criticial_priority">Crtiticial priority</option>
-            <option value="high_priority">High priority</option>
-            <option value="medium_priority">Medium priority</option>
-            <option value="low_priority">Low priority</option>
-          </select>
-          <input type="date" placeholder="task deadline">
-          <div class="buttons">
-            <button>add task</button>
 
-            <button>cancel</button>
+            </div>
+          </li>
+          <button class="add_task">add task</button>
+        </section>
+        <section class="column">
+          <div class="header_section">
+            <article>section 2</article>
+            <div class="edit"></div>
+            <div class="delete"></div>
           </div>
-        </form>
-      </section>
+          <li class="tasks_item">
+            <div class="task low_priority">
+              <article>take a rest</article>
+              <p>buy medovukha and chill</p>
+
+            </div>
+            <div class="task_buttons">
+              <div class="done_task"></div>
+              <div class="edit_task"></div>
+              <div class="trash_task"></div>
+            </div>
+          </li>
+          <li class="tasks_item">
+            <div class="complete_task high_priority">
+              <article>task name</article>
+              <p>task description</p>
+            </div>
+            <div class="task_buttons">
+              <div class="cross_task"></div>
+              <div class="edit_task"></div>
+              <div class="trash_task"></div>
+
+            </div>
+          </li>
+          <form id="new_task">
+            <input placeholder="task name">
+            <textarea placeholder="task description"></textarea>
+            <select name="set_priority" id="priority">
+              <option value="" disabled selected hidden>Set priority</option>
+              <option value="criticial_priority">Crtiticial priority</option>
+              <option value="high_priority">High priority</option>
+              <option value="medium_priority">Medium priority</option>
+              <option value="low_priority">Low priority</option>
+            </select>
+            <input type="date" placeholder="task deadline">
+            <div class="buttons">
+              <button id="create_task">add task</button>
+
+              <button id="cancel_task">cancel</button>
+            </div>
+          </form>
+        </section>
       </ul>
     </div>
     <!-- <div id='calendar'></div> -->
 
     <!-- <div class="calendar"></div> -->
-
-
   </div>
 
-  <!-- <script>
-    const tasksListElement = document.querySelector(`.tasks_list`);
-    const taskElements = tasksListElement.querySelectorAll(`.tasks_item`);
+  <script>
 
-    // Перебираем все элементы списка и присваиваем нужное значение
-    for (const task of taskElements) {
-      task.draggable = true;
-    }
-    tasksListElement.addEventListener(`dragstart`, (evt) => {
-      evt.target.classList.add(`selected`);
-    })
+document.getElementById("cancel_task").addEventListener("click", function (event) {
+  const taskButton = document.createElement("button");
+  taskButton.className = "add_task";
+  taskButton.innerText = "add task";
+  console.log("hello")
+  document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(taskButton);
+  document.getElementById("new_task").remove();
+});
+    // Add event listener to the "add task" button
+    document.getElementById("create_task").addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent form submission
+      console.log("hi")
+      // Get form values
+      var taskName = document.querySelector("#new_task input[placeholder='task name']").value;
+      var taskDescription = document.querySelector("#new_task textarea[placeholder='task description']").value;
+      var taskPriority = document.querySelector("#new_task select[name='set_priority']").value;
+      var taskDeadline = document.querySelector("#new_task input[type='date']").value;
 
-    tasksListElement.addEventListener(`dragend`, (evt) => {
-      evt.target.classList.remove(`selected`);
+      // Create a new list item
+      var newListItem = document.createElement("li");
+      newListItem.className = "tasks_item";
+
+      newListItem.innerHTML = `<div class="task ${taskPriority}">
+          <article>${taskName}</article>
+          <p>${taskDescription}</p>
+          </div><div class="task_buttons">
+            <div class="done_task"></div>
+            <div class="edit_task"></div>
+            <div class="trash_task"></div>
+            </div>`
+
+      document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(newListItem);
+        
+      document.getElementById("new_task").remove();
     });
-    tasksListElement.addEventListener(`dragover`, (evt) => {
-      // Разрешаем сбрасывать элементы в эту область
-      evt.preventDefault();
+  </script>
 
-      // Находим перемещаемый элемент
-      const activeElement = tasksListElement.querySelector(`.selected`);
-      // Находим элемент, над которым в данный момент находится курсор
-      const currentElement = evt.target;
-      // Проверяем, что событие сработало:
-      // 1. не на том элементе, который мы перемещаем,
-      // 2. именно на элементе списка
-      const isMoveable = activeElement !== currentElement &&
-        currentElement.classList.contains(`tasks_item`);
-
-      // Если нет, прерываем выполнение функции
-      if (!isMoveable) {
-        return;
-      }
-
-      // Находим элемент, перед которым будем вставлять
-      const nextElement = (currentElement === activeElement.nextElementSibling) ?
-        currentElement.nextElementSibling :
-        currentElement;
-
-      // Вставляем activeElement перед nextElement
-      tasksListElement.insertBefore(activeElement, nextElement);
-
-
-      const getNextElement = (cursorPosition, currentElement) => {
-        // Получаем объект с размерами и координатами
-        const currentElementCoord = currentElement.getBoundingClientRect();
-        // Находим вертикальную координату центра текущего элемента
-        const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
-
-        // Если курсор выше центра элемента, возвращаем текущий элемент
-        // В ином случае — следующий DOM-элемент
-        const nextElement = (cursorPosition < currentElementCenter) ?
-          currentElement :
-          currentElement.nextElementSibling;
-
-        return nextElement;
-      };
-
-      tasksListElement.addEventListener(`dragover`, (evt) => {
-        evt.preventDefault();
-
-        const activeElement = tasksListElement.querySelector(`.selected`);
-        const currentElement = evt.target;
-        const isMoveable = activeElement !== currentElement &&
-          currentElement.classList.contains(`tasks_item`);
-
-        if (!isMoveable) {
-          return;
-        }
-
-        // evt.clientY — вертикальная координата курсора в момент,
-        // когда сработало событие
-        const nextElement = getNextElement(evt.clientY, currentElement);
-
-        // Проверяем, нужно ли менять элементы местами
-        if (
-          nextElement &&
-          activeElement === nextElement.previousElementSibling ||
-          activeElement === nextElement
-        ) {
-          // Если нет, выходим из функции, чтобы избежать лишних изменений в DOM
-          return;
-        }
-
-        tasksListElement.insertBefore(activeElement, nextElement);
-      });
-
-
-    });
-
-
-  </script> -->
-
-<script>
-
-
-(() => {
-  let currentDroppable = null;
-  let placeholder;
-  let isDraggingStarted = false;
-  let movingElement;
-
-  const processEmptySections = () => {
-    // Create not visible .board-item in empty sections to dnd work with it too
-    document
-      .querySelectorAll(".tasks_list")
-      .forEach((section) => {
-        if (
-          !section.querySelector(".tasks_item:not(.emptySectionHiddenLesson)")
-        ) {
-          const emptySectionHiddenLesson = document.createElement("div");
-          emptySectionHiddenLesson.classList.add(
-            "tasks_item",
-            "emptySectionHiddenLesson"
-          );
-          section.append(emptySectionHiddenLesson);
-        } else {
-          const emptySectionHiddenLesson = section.querySelector(
-            ".emptySectionHiddenLesson"
-          );
-          emptySectionHiddenLesson &&
-            section.removeChild(emptySectionHiddenLesson);
-        }
-      });
-  };
-
-  const createPlaceholder = () => {
-    // Create and position placeholder before movingElement
-    placeholder = document.createElement("div");
-    placeholder.classList.add("placeholder");
-    movingElement.parentNode.insertBefore(placeholder, movingElement);
-  };
-
-  const onMouseMove = (event) => {
-    if (!isDraggingStarted) {
-      isDraggingStarted = true;
-      createPlaceholder();
-      Object.assign(movingElement.style, {
-        position: "absolute",
-        zIndex: 1000,
-        border: "1px solid red",
-        left: `${initialMovingElementPageXY.x}px`,
-        top: `${initialMovingElementPageXY.y}px`,
-      });
-    }
-    moveAt(movingElement, event.pageX, event.pageY);
-
-    elementBelow = getElementBelow(movingElement, "by-center");
-    if (!elementBelow) return;
-    let droppableBelow = elementBelow.closest(".tasks_item");
-    if (currentDroppable != droppableBelow) {
-      //  currentDroppable=null
-      //    if we were not over a droppable element before this event
-      //  droppableBelow=null
-      //    if we are not over a droppable element now, during this event
-      currentDroppable = droppableBelow;
-      if (currentDroppable) {
-        if (
-          !isAbove(movingElement, currentDroppable) ||
-          currentDroppable.classList.contains("emptySectionHiddenLesson")
-        ) {
-          currentDroppable.parentNode.insertBefore(
-            placeholder,
-            currentDroppable
-          );
-        } else {
-          currentDroppable.parentNode.insertBefore(
-            placeholder,
-            currentDroppable.nextElementSibling
-          );
-        }
-      }
-    }
-  };
-
-  const setMovingElement = (event) => {
-    movingElement = event.target;
-  };
-
-  const onMouseUp = () => {
-    if (!isDraggingStarted) {
-      document.removeEventListener("mousemove", onMouseMove);
-      movingElement.onmouseup = null;
-      return;
-    }
-    console.log(
-      "We move item",
-      movingElement,
-      "to column",
-      placeholder.closest(".column"),
-      "before item",
-      placeholder.nextElementSibling,
-      "after item",
-      placeholder.previousElementSibling
-    );
-
-    placeholder.parentNode.insertBefore(movingElement, placeholder);
-    Object.assign(movingElement.style, {
-      position: "static",
-      left: "auto",
-      top: "auto",
-      zIndex: "auto",
-      transform: "none",
-    });
-    document.removeEventListener("mousemove", onMouseMove);
-    isDraggingStarted = false;
-    placeholder && placeholder.parentNode.removeChild(placeholder);
-    movingElement.onmouseup = null;
-    movingElement = null;
-
-    // Process empty columns without items
-    processEmptySections();
-  };
-
-  const onMouseDown = (event) => {
-    setMovingElement(event);
-    shifts.set(event.clientX, event.clientY, movingElement);
-    initialMovingElementPageXY.set(movingElement);
-    document.addEventListener("mousemove", onMouseMove);
-    movingElement.onmouseup = onMouseUp;
-  };
-
-  window.addEventListener("load", () => {
-    for (const draggableElement of document.querySelectorAll(".tasks_item")) {
-      draggableElement.onmousedown = onMouseDown;
-      draggableElement.ondragstart = () => {
-        return false;
-      };
-    }
-  });
-})();
-
-
-
-
-const initialMovingElementPageXY = {
-  x: 0,
-  y: 0,
-  set: (movingElement) => {
-    const rect = movingElement.getBoundingClientRect();
-    initialMovingElementPageXY.x = rect.x + window.scrollX;
-    initialMovingElementPageXY.y = rect.y + window.scrollY;
-  },
-};
-
-// Shifts allowing drag for any point of movingElement.
-// Stores x and y shifts from top left corner of movingElement to the point of drag
-const shifts = {
-  shiftX: 0,
-  shiftY: 0,
-  set: (clientX, clientY, movingElement) => {
-    shifts.shiftX = clientX - movingElement.getBoundingClientRect().left;
-    shifts.shiftY = clientY - movingElement.getBoundingClientRect().top;
-  },
-};
-
-const moveAt = (element, pageX, pageY) => {
-  // Moves element to pageX and pageY coordinates using fast CSS transform method
-  element.style.transform = `translate(${
-    pageX - initialMovingElementPageXY.x - shifts.shiftX
-  }px, ${
-    pageY - initialMovingElementPageXY.y - shifts.shiftY
-  }px) rotate(-3deg)`;
-};
-
-const getElementCoordinates = (node, searchCoordsBy) => {
-  // Returns left and top coordinates of node
-  const rect = node.getBoundingClientRect();
-  return {
-    top:
-      searchCoordsBy == "by-center"
-        ? rect.top + rect.height / 2
-        : rect.top + 10,
-    left: rect.left + rect.width / 2,
-  };
-};
-
-const isAbove = (nodeA, nodeB) => {
-  // Returns the bounding rectangle of nodes
-  const rectA = nodeA.getBoundingClientRect();
-  const rectB = nodeB.getBoundingClientRect();
-
-  return rectA.top + rectA.height / 2 < rectB.top + rectB.height / 2;
-};
-
-const isRight = (nodeA, nodeB) => {
-  // Get the bounding rectangle of nodes
-  const rectA = nodeA.getBoundingClientRect();
-  const rectB = nodeB.getBoundingClientRect();
-
-  return rectA.left + rectA.width / 2 < rectB.left + rectB.width / 2;
-};
-
-const getElementBelow = (movingElement, searchCoordsBy) => {
-  // Get element below movingElement now
-  const movingElementCenter = getElementCoordinates(
-    movingElement,
-    searchCoordsBy
-  );
-  movingElement.hidden = true;
-  let elementBelow = document.elementFromPoint(
-    movingElementCenter.left,
-    movingElementCenter.top
-  );
-  movingElement.hidden = false;
-  return elementBelow;
-};
-</script>
-  
   <script>
     function toggleAside() {
       const items = document.getElementById("items").style

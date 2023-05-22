@@ -10,7 +10,7 @@ button {
     cursor: pointer;
     outline: inherit;
 }
-.tasks_list {
+#tasks_list {
     margin: 0;
     padding: 0;
     
@@ -59,7 +59,7 @@ section {
     margin-top: 10px;
 }
 
-.new_task {
+#new_task {
     background-color: gray;
     display: flex;
     position: relative;
@@ -325,7 +325,7 @@ body, html{
     .items{
         min-height: 100%;
     }
-    .tasks_list{
+    #tasks_list{
         display: flex;
     }
 /* 
