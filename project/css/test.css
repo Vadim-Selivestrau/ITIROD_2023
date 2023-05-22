@@ -10,7 +10,47 @@ button {
     cursor: pointer;
     outline: inherit;
 }
+.tasks_list {
+    margin: 0;
+    padding: 0;
+    
+  /* display: flex; */
+  
+    list-style: none;
+  }
+  .tasks_item {
+    /* transition: background-color 0.5s; */
+    margin-bottom: 10px;
+    padding: 5px;
+  
+    /* text-align: center; */
+    /* cursor: move; */
+    /* background-color: #dff2ef; */
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
 
+  .tasks_item:last-child {
+    margin-bottom: 0;
+  }
+  
+.task, .complete_task{
+    
+    pointer-events: none;
+}
+
+  .placeholder {
+    background-color: white;
+    margin-bottom: 0.5em;
+  }
+  .emptySectionHiddenLesson {
+    background: none;
+    border: none;
+    width: auto;
+    height: auto;
+  }
 section {
     background-color: #A48282;
     width: 200px;
@@ -84,6 +124,9 @@ body {
     display: flex;
     justify-content: space-between;
     margin: 10px;
+}
+.header_section>article{
+    cursor: move;
 }
 #img-button {
     cursor: pointer;
@@ -281,6 +324,9 @@ body, html{
     }
     .items{
         min-height: 100%;
+    }
+    .tasks_list{
+        display: flex;
     }
 /* 
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap');
