@@ -145,16 +145,18 @@
         }
       }
     })
+    document.querySelectorAll(".trash_task").forEach(item => {
+      if (event.target === item) {
+        if(item.classList.contains("trash_task")) {
+          item.classList.replace("cross_task", "done_task")
+          item.parentElement.parentElement.remove()
 
-    // console.log(elements)
-    //   var myFunction = function() {
-    //     alert('something');
-    //   };
-
-    //   for (var i = 0; i < elements.length; i++) {
-    //       elements[i].addEventListener('click', alert('something'), false);
-    //   }
-
+        } else if(item.classList.contains("done_task")) {
+          item.classList.replace("done_task", "cross_task")
+          item.parentElement.parentElement.querySelector(".task").classList.replace("task", "complete_task")
+        }
+      }
+    })
   };
 
   window.addEventListener("load", () => {
@@ -165,18 +167,6 @@
       };
     }
   });
-
-
-
-
-
-  // var element = document.getElementsByClassName("done_task")[0];
-  // console.log(element)
-  // console.log(document.querySelectorAll(".done_task"))
-  // element.addEventListener("click", function (e) {
-  //   alert('something');
-  //   console.log("heli")
-  // }, false);
 })();
 
 

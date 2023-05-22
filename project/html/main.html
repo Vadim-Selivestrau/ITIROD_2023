@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="../js/drag_n_drop.js"></script>
   <script src="../js/drag_n_drop_sections.js"></script>
+  <script src="../js/buttons.js"></script>
   <link rel="stylesheet" href="../css/test.css">
   <title>Page Title</title>
   <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script> -->
@@ -115,7 +116,9 @@
 
             </div>
           </li>
-          <form id="new_task">
+
+          <button class="add_task">add task</button>
+          <!-- <form id="new_task">
             <input placeholder="task name">
             <textarea placeholder="task description"></textarea>
             <select name="set_priority" id="priority">
@@ -131,7 +134,7 @@
 
               <button id="cancel_task">cancel</button>
             </div>
-          </form>
+          </form> -->
         </section>
       </ul>
     </div>
@@ -142,14 +145,107 @@
 
   <script>
 
-document.getElementById("cancel_task").addEventListener("click", function (event) {
-  const taskButton = document.createElement("button");
-  taskButton.className = "add_task";
-  taskButton.innerText = "add task";
-  console.log("hello")
-  document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(taskButton);
-  document.getElementById("new_task").remove();
-});
+
+
+
+    // document.getElementsByClassName("add_task").addEventListener("click", function (event) {
+    //   var newForm = document.createElement("form");
+
+    //   newForm.id = "new_task";
+    //   console.log("hello")
+    //   newForm.innerHTML = `<input placeholder="task name">
+    //         <textarea placeholder="task description"></textarea>
+    //         <select name="set_priority" id="priority">
+    //           <option value="" disabled selected hidden>Set priority</option>
+    //           <option value="criticial_priority">Crtiticial priority</option>
+    //           <option value="high_priority">High priority</option>
+    //           <option value="medium_priority">Medium priority</option>
+    //           <option value="low_priority">Low priority</option>
+    //         </select>
+    //         <input type="date" placeholder="task deadline">
+    //         <div class="buttons">
+    //           <button id="create_task">add task</button>
+
+    //           <button id="cancel_task">cancel</button>
+    //         </div>`
+    //   // document.getElementsByClassName("column").appendChild(newForm);
+
+    // });
+
+    // Получаем все кнопки "add task" по классу
+    const addButtons = document.querySelectorAll('.add_task');
+
+    // Обработчик события клика на кнопки "add task"
+    addButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        // Создаем элемент формы
+        const form = document.createElement('form');
+
+        // Генерируем уникальный ID для формы
+        const formId = `form-${Date.now()}`;
+
+        // Устанавливаем ID для формы
+        form.setAttribute('id', formId);
+
+        // Пример добавления полей в форму
+        form.innerHTML = `<input placeholder="task name">
+            <textarea placeholder="task description"></textarea>
+            <select name="set_priority" id="priority">
+              <option value="" disabled selected hidden>Set priority</option>
+              <option value="criticial_priority">Crtiticial priority</option>
+              <option value="high_priority">High priority</option>
+              <option value="medium_priority">Medium priority</option>
+              <option value="low_priority">Low priority</option>
+            </select>
+            <input type="date" placeholder="task deadline">
+            <div class="buttons">
+              <button id="create_task">add task</button>
+
+              <button id="cancel_task">cancel</button>
+            </div>`
+
+        // Находим ближайшую секцию к кнопке "add task"
+        const section = button.closest('section');
+
+        // Добавляем форму в конец найденной секции
+        section.appendChild(form);
+        button.remove();
+      });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.getElementById("cancel_task").addEventListener("click", function (event) {
+      const taskButton = document.createElement("button");
+      taskButton.className = "add_task";
+      taskButton.innerText = "add task";
+      console.log("hello")
+      document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(taskButton);
+      document.getElementById("new_task").remove();
+    });
+
+
+
+
+
+
+
+
+
+
+
+
     // Add event listener to the "add task" button
     document.getElementById("create_task").addEventListener("click", function (event) {
       event.preventDefault(); // Prevent form submission
@@ -165,16 +261,16 @@ document.getElementById("cancel_task").addEventListener("click", function (event
       newListItem.className = "tasks_item";
 
       newListItem.innerHTML = `<div class="task ${taskPriority}">
-          <article>${taskName}</article>
-          <p>${taskDescription}</p>
-          </div><div class="task_buttons">
-            <div class="done_task"></div>
-            <div class="edit_task"></div>
-            <div class="trash_task"></div>
-            </div>`
+            <article>${taskName}</article>
+            <p>${taskDescription}</p>
+            </div><div class="task_buttons">
+              <div class="done_task"></div>
+              <div class="edit_task"></div>
+              <div class="trash_task"></div>
+              </div>`
 
       document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(newListItem);
-        
+
       document.getElementById("new_task").remove();
     });
   </script>
