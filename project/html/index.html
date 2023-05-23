@@ -9,7 +9,7 @@
 <body>
 
 <h1 class="titles">REGISTRATION</h1>
-<form class="form">
+<form class="form" id="create_account">
     <label for="login">Login:</label><br>
     <input type="text" id="login" name="login"><br>
     
@@ -17,10 +17,13 @@
     <input type="password" id="password" name="password"><br>
     
     <label for="confirm_password">Confirm password:</label><br>
+    
     <input type="password" id="confirm_password" name="confirm_password"><br>
     
+    <input type="submit" value="registration"><br>
+    
     <div class="button">
-    <button type="submit" >Registration</button><br>
+    
     </div>
     <div style="text-align:center">
     <a href="./login.html" class="links">Already have account? Login!</a>
@@ -28,4 +31,7 @@
 </form>
 
 </body>
+<script type="module" src="../js/register.js"></script>
+<script type="module" src="../js/index.js"></script>
+
 </html>

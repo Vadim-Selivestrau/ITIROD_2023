@@ -3,21 +3,21 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="../js/drag_n_drop.js"></script>
-  <script src="../js/drag_n_drop_sections.js"></script>
-  <script src="../js/buttons.js"></script>
+  
+  <!-- <script src="../js/data.js"></script>
+  <script src="../js/drag_n_drop_sections.js"></script>-->
+  
   <link rel="stylesheet" href="../css/test.css">
   <title>Page Title</title>
-  <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script> -->
   <script>
 
-    document.addEventListener('DOMContentLoaded', function () {
-      var calendarEl = document.getElementById('calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-    });
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   var calendarEl = document.getElementById('calendar');
+    //   var calendar = new FullCalendar.Calendar(calendarEl, {
+    //     initialView: 'dayGridMonth'
+    //   });
+    //   calendar.render();
+    // });
 
   </script>
 </head>
@@ -48,149 +48,71 @@
       </div>
       <button id="new_topic">new topic</button>
 
-      <button class="new_section">add section</button>
+      <button id="new_section">add section</button>
     </aside>
     <div class="tasks">
 
-      <ul id="tasks_list">
-        <section class="column">
-          <div class="header_section">
-            <article>section 1</article>
-            <div class="edit"></div>
-            <div class="delete"></div>
-          </div>
-          <li class="tasks_item">
-            <div class="task critical_priority">
-              <article>make mockup</article>
-              <p>to do mockup in figma</p>
-              <div>14.04.2023</div>
-            </div>
-            <div class="task_buttons">
-              <div class="done_task"></div>
-              <div class="edit_task"></div>
-              <div class="trash_task"></div>
-
-            </div>
-          </li>
-          <li class="tasks_item">
-            <div class="complete_task medium_priority">
-              <article>task name</article>
-              <p>task description</p>
-            </div>
-            <div class="task_buttons">
-              <div class="cross_task"></div>
-              <div class="edit_task"></div>
-              <div class="trash_task"></div>
-
-            </div>
-          </li>
-          <button class="add_task">add task</button>
-        </section>
-        <section class="column">
-          <div class="header_section">
-            <article>section 2</article>
-            <div class="edit"></div>
-            <div class="delete"></div>
-          </div>
-          <li class="tasks_item">
-            <div class="task low_priority">
-              <article>take a rest</article>
-              <p>buy medovukha and chill</p>
-
-            </div>
-            <div class="task_buttons">
-              <div class="done_task"></div>
-              <div class="edit_task"></div>
-              <div class="trash_task"></div>
-            </div>
-          </li>
-          <li class="tasks_item">
-            <div class="complete_task high_priority">
-              <article>task name</article>
-              <p>task description</p>
-            </div>
-            <div class="task_buttons">
-              <div class="cross_task"></div>
-              <div class="edit_task"></div>
-              <div class="trash_task"></div>
-
-            </div>
-          </li>
-
-          <button class="add_task">add task</button>
-          <!-- <form id="new_task">
-            <input placeholder="task name">
-            <textarea placeholder="task description"></textarea>
-            <select name="set_priority" id="priority">
-              <option value="" disabled selected hidden>Set priority</option>
-              <option value="criticial_priority">Crtiticial priority</option>
-              <option value="high_priority">High priority</option>
-              <option value="medium_priority">Medium priority</option>
-              <option value="low_priority">Low priority</option>
-            </select>
-            <input type="date" placeholder="task deadline">
-            <div class="buttons">
-              <button id="create_task">add task</button>
-
-              <button id="cancel_task">cancel</button>
-            </div>
-          </form> -->
-        </section>
-      </ul>
+      
     </div>
     <!-- <div id='calendar'></div> -->
 
     <!-- <div class="calendar"></div> -->
   </div>
+</body>
+<script>
+  var dragItem = null;
 
+  function dragStart(event) {
+    dragItem = event.target;
+    event.dataTransfer.effectAllowed = 'move';
+  }
+
+  function dragOver(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    var dropItem = event.target;
+    // Проверяем, что dropItem является элементом li
+    if (dropItem.tagName.toLowerCase() === 'li') {
+      // Меняем местами перетаскиваемый элемент и целевой элемент
+      dropItem.parentNode.insertBefore(dragItem, dropItem.nextSibling);
+
+
+      var isBelow = dragItem.compareDocumentPosition(dropItem) === 4;
+      console.log(dropItem.parentNode.lastChild)
+    if (isBelow) {
+      dropItem.parentNode.insertBefore(dragItem, dropItem.nextSibling);
+
+      // tasksList.insertBefore(dragItem, dropItem.nextSibling);
+    } else {
+      dropItem.parentNode.insertBefore(dragItem, dropItem);
+    }
+    }
+  }
+
+  // Добавляем обработчик события dragover к контейнеру
+  var tasksList = document.getElementById('tasks_list');
+  tasksList.addEventListener('dragover', dragOver);
+
+  // Добавляем обработчик события drop к контейнеру
+  tasksList.addEventListener('drop', drop);
+
+
+  
+</script>
+
+
+
+
+<script src="../js/buttons.js"></script> 
+<script type="module" src="../js/main.js"></script>
+
+<!-- <script src="../js/drag_n_drop.js"></script> -->
   <script>
 
-
-function filterItems() {
-  // Получаем значение из поля input
-  const inputValue = document.querySelector('.input-header').value.toLowerCase();
-
-  // Получаем все элементы коллекции
-  const itemElements = document.querySelectorAll('.item_collection');
-
-  // Перебираем элементы и скрываем или отображаем в соответствии с введенным значением
-  itemElements.forEach(function(item) {
-    const button = item.querySelector('button');
-    const buttonText = button.textContent.toLowerCase();
-    if (buttonText.includes(inputValue)) {
-      item.style.display = 'block';
-    } else {
-      item.style.display = 'none';
-    }
-  });
-}
-
-
-    // document.getElementsByClassName("add_task").addEventListener("click", function (event) {
-    //   var newForm = document.createElement("form");
-
-    //   newForm.id = "new_task";
-    //   console.log("hello")
-    //   newForm.innerHTML = `<input placeholder="task name">
-    //         <textarea placeholder="task description"></textarea>
-    //         <select name="set_priority" id="priority">
-    //           <option value="" disabled selected hidden>Set priority</option>
-    //           <option value="criticial_priority">Crtiticial priority</option>
-    //           <option value="high_priority">High priority</option>
-    //           <option value="medium_priority">Medium priority</option>
-    //           <option value="low_priority">Low priority</option>
-    //         </select>
-    //         <input type="date" placeholder="task deadline">
-    //         <div class="buttons">
-    //           <button id="create_task">add task</button>
-
-    //           <button id="cancel_task">cancel</button>
-    //         </div>`
-    //   // document.getElementsByClassName("column").appendChild(newForm);
-
-    // });
-
-    // Получаем все кнопки "add task" по классу
     const addButtons = document.querySelectorAll('.add_task');
 
     // Обработчик события клика на кнопки "add task"
@@ -199,11 +121,7 @@ function filterItems() {
         // Создаем элемент формы
         const form = document.createElement('form');
 
-        // Генерируем уникальный ID для формы
-        const formId = `form-${Date.now()}`;
-
-        // Устанавливаем ID для формы
-        form.setAttribute('id', formId);
+        form.className = "new_task";
 
         // Пример добавления полей в форму
         form.innerHTML = `<input placeholder="task name">
@@ -217,97 +135,53 @@ function filterItems() {
             </select>
             <input type="date" placeholder="task deadline">
             <div class="buttons">
-              <button id="create_task">add task</button>
+              <button class="create_task">add task</button>
 
-              <button id="cancel_task">cancel</button>
+              <button class="cancel_task">cancel</button>
             </div>`
 
         // Находим ближайшую секцию к кнопке "add task"
         const section = button.closest('section');
-
+        const button_cancel = button.closest('.cancel_task');
+        
         // Добавляем форму в конец найденной секции
         section.appendChild(form);
         button.remove();
       });
     });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    document.getElementById("cancel_task").addEventListener("click", function (event) {
+    document.querySelector(".cancel_task").addEventListener("click", function (event) {
       const taskButton = document.createElement("button");
       taskButton.className = "add_task";
       taskButton.innerText = "add task";
-      console.log("hello")
-      document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(taskButton);
-      document.getElementById("new_task").remove();
+      console.log("hello");
+      document.querySelector(".create_task").parentElement.parentElement.parentElement.appendChild(taskButton);
+
+      document.querySelector(".new_task").remove();
     });
-
-
-
-
-
-
-
-
-
-
-
+    
 
     // Add event listener to the "add task" button
-    document.getElementById("create_task").addEventListener("click", function (event) {
-      event.preventDefault(); // Prevent form submission
-      console.log("hi")
-      // Get form values
-      var taskName = document.querySelector("#new_task input[placeholder='task name']").value;
-      var taskDescription = document.querySelector("#new_task textarea[placeholder='task description']").value;
-      var taskPriority = document.querySelector("#new_task select[name='set_priority']").value;
-      var taskDeadline = document.querySelector("#new_task input[type='date']").value;
 
-      // Create a new list item
-      var newListItem = document.createElement("li");
-      newListItem.className = "tasks_item";
 
-      newListItem.innerHTML = `<div class="task ${taskPriority}">
-            <article>${taskName}</article>
-            <p>${taskDescription}</p>
-            </div><div class="task_buttons">
-              <div class="done_task"></div>
-              <div class="edit_task"></div>
-              <div class="trash_task"></div>
-              </div>`
 
-      document.getElementById("create_task").parentElement.parentElement.parentElement.appendChild(newListItem);
-
-      document.getElementById("new_task").remove();
-    });
   </script>
 
   <script>
-    function toggleAside() {
-      const items = document.getElementById("items").style
-      if (items.gridTemplateColumns !== "1fr") {
-        items.gridTemplateAreas = '"hrd" "clndr" "tsks"'
-        items.gridTemplateColumns = "1fr"
-        document.getElementById("aside").style.display = "none"
-      } else {
-        items.gridTemplateColumns = "repeat(4, 1fr)"
-        items.gridTemplateAreas = '"hrd hrd hrd hrd"  "ass clndr . ." "ass tsks tsks tsks"'
-        document.getElementById("aside").style.display = "block"
-      }
-    }
+    // function toggleAside() {
+    //   const items = document.getElementById("items").style
+    //   if (items.gridTemplateColumns !== "1fr") {
+    //     items.gridTemplateAreas = '"hrd" "clndr" "tsks"'
+    //     items.gridTemplateColumns = "1fr"
+    //     document.getElementById("aside").style.display = "none"
+    //   } else {
+    //     items.gridTemplateColumns = "repeat(4, 1fr)"
+    //     items.gridTemplateAreas = '"hrd hrd hrd hrd"  "ass clndr . ." "ass tsks tsks tsks"'
+    //     document.getElementById("aside").style.display = "block"
+    //   }
+    // }
   </script>
-  <script>function CalendarControl() {
+  <!-- <script>function CalendarControl() {
       const calendar = new Date();
       const calendarControl = {
         localDate: new Date(),
@@ -526,7 +400,6 @@ function filterItems() {
       calendarControl.init();
     }
     const calendarControl = new CalendarControl();
-  </script>
-</body>
+  </script> -->
 
 </html>
