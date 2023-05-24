@@ -21,7 +21,7 @@ function filterItems() {
 }
 
 
-function button_check() {
+export function button_check() {
     const addButtons = document.querySelectorAll('.add_task');
 
     // Обработчик события клика на кнопки "add task"
@@ -57,22 +57,22 @@ function button_check() {
             section.appendChild(form);
             button.remove();
             console.log("create form button pressed")
-            // create_task_event();
-            
-            // cancel_task_event();
+            create_task_event();
+
+            cancel_task_event();
         });
     });
 }
 
-function create_task_event() {
-    document.querySelector(".create_task").addEventListener("click", function (event) {
+export function create_task_event() {
+    document.querySelectorAll(".create_task").forEach(item => item.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent form submission
         console.log("create task button pressed");
         // Get form values
-        var taskName = document.querySelector(".new_task input[placeholder='task name']").value;
-        var taskDescription = document.querySelector(".new_task textarea[placeholder='task description']").value;
-        var taskPriority = document.querySelector(".new_task select[name='set_priority']").value;
-        var taskDeadline = document.querySelector(".new_task input[type='date']").value;
+        var taskName = event.target.parentElement.parentElement.querySelector(".new_task input[placeholder='task name']").value;
+        var taskDescription = event.target.parentElement.parentElement.querySelector(".new_task textarea[placeholder='task description']").value;
+        var taskPriority = event.target.parentElement.parentElement.querySelector(".new_task select[name='set_priority']").value;
+        var taskDeadline = event.target.parentElement.parentElement.querySelector(".new_task input[type='date']").value;
 
         // Create a new list item
         var newListItem = document.createElement("li");
@@ -82,30 +82,30 @@ function create_task_event() {
 
         newListItem.innerHTML = `<div class="task ${taskPriority}"> <article>${taskName}</article> <p>${taskDescription}</p> <p>${taskDeadline}</p> </div><div class="task_buttons"> <div class="done_task"></div> <div class="edit_task"></div> <div class="trash_task"></div> </div>`;
 
-        document.querySelector(".create_task").parentElement.parentElement.parentElement.appendChild(newListItem);
+        event.target.parentElement.parentElement.parentElement.appendChild(newListItem);
         // addEventListenersToNewElements();
 
 
-        document.querySelector(".new_task").remove();
+        event.target.closest(".new_task").remove();
 
         const newButton = document.createElement("button");
         newButton.className = "add_task";
         newButton.innerText = "add task";
         const section = newListItem.closest('section');
         section.appendChild(newButton)
-        // button_check()
-    });
+        button_check()
+    }));
 }
 
 
-function cancel_task_event() {
-    document.querySelector(".cancel_task").addEventListener("click", function (event) {
+export function cancel_task_event() {
+    document.querySelectorAll(".cancel_task").forEach(item => item.addEventListener("click", function (event) {
         event.preventDefault(); // Prevent form submission
         console.log("cancel button pressed");
         // Get form values
-        const section = document.querySelector(".new_task").closest('section');
+        const section = event.target.closest('section');
 
-        document.querySelector(".new_task").remove();
+        event.target.closest(".new_task").remove();
 
 
         const newButton = document.createElement("button");
@@ -113,11 +113,18 @@ function cancel_task_event() {
         newButton.innerText = "add task";
         console.log(section)
         section.appendChild(newButton)
-        // button_check()
-    });
+        button_check()
+    }));
 }
 
-
-
+// export function done_task_event() {
+//     document.querySelectorAll(".done_task").addEventListener("click", function (event) {
+//         event.preventDefault(); // Prevent form submission
+//         console.log("done task pressed");
+//         const task = document.querySelector(".task").closest('.done_task');
+//         task.classList.remove("done_task");
+//         task.classList.add("cross_task");
+//     });
+// }
 
 button_check()
