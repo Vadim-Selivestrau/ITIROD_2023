@@ -1,7 +1,5 @@
 import { setBoardData } from "./config.js";
-import { userData } from "./index.js";
-import { board } from "./main.js";
-
+import { userData, board, currentProjectID } from "./index.js";
 
 
 
@@ -21,10 +19,10 @@ export function button_check() {
             <textarea placeholder="task description"></textarea>
             <select name="set_priority" class="priority">
               <option value="" disabled selected hidden>Set priority</option>
-              <option value="critical_priority">Criticial priority</option>
-              <option value="high_priority">High priority</option>
-              <option value="medium_priority">Medium priority</option>
-              <option value="low_priority">Low priority</option>
+              <option value="1">Criticial priority</option>
+              <option value="2">High priority</option>
+              <option value="3">Medium priority</option>
+              <option value="4">Low priority</option>
             </select>
             <input type="date" placeholder="task deadline">
             <div class="buttons">
@@ -60,33 +58,19 @@ function save_task_event() {
         var taskDeadline = event.target.parentElement.parentElement.querySelector(".new_task input[type='date']").value;
 
         // Create a new list item
-        var newListItem = document.createElement("li");
-        newListItem.setAttribute("draggable", "true")
-        newListItem.setAttribute("ondragstart", "dragStart(event)")
-        newListItem.className = "tasks_item";
+        const sectionCreate = parseInt(item.closest("section").id.replace("s", ""));
+        const taskCreate = parseInt(item.closest("li").id.replace("t", ""));
+        board.projects[currentProjectID].sections[sectionCreate].tasks[taskCreate]={
+            data: taskDeadline,
+            description: taskDescription,
+            isComplete: false,
+            name: taskName,
+            priority: taskPriority,
+        };
 
-        newListItem.innerHTML = `<div class="task ${taskPriority}"> <article>${taskName}</article> <p>${taskDescription}</p> <p>${taskDeadline}</p> </div><div class="task_buttons"> <div class="done_task"></div> <div class="edit_task"></div> <div class="trash_task"></div> </div>`;
+        setBoardData(board, userData);
 
-        event.target.parentElement.parentElement.parentElement.appendChild(newListItem);
-        // addEventListenersToNewElements();
-
-
-        event.target.closest(".new_task").remove();
-
-        // const newButton = document.createElement("button");
-        // newButton.className = "add_task";
-        // newButton.innerText = "add task";
-        // const section = newListItem.closest('section');
-        // section.appendChild(newButton)
-        // done_task_event()
-        button_check()
-        newListItem.querySelector(".done_task").addEventListener("click", addEvent);
-        console.log(event.target.parentElement)
-        // .querySelector(".done_task").addEventListener("click", addEvent);
-        newListItem.querySelector(".trash_task").addEventListener("click", trashEvent);
-        newListItem.querySelector(".edit_task").addEventListener("click", editEvent);
-        // console.log(event.target.closest(".done_task").value)
-        // trash_task_event()
+ 
     }));
 }
 export function create_task_event() {
@@ -96,37 +80,20 @@ export function create_task_event() {
         // Get form values
         var taskName = event.target.parentElement.parentElement.querySelector(".new_task input[placeholder='task name']").value;
         var taskDescription = event.target.parentElement.parentElement.querySelector(".new_task textarea[placeholder='task description']").value;
-        var taskPriority = event.target.parentElement.parentElement.querySelector(".new_task select[name='set_priority']").value;
+        var taskPriority = parseInt(event.target.parentElement.parentElement.querySelector(".new_task select[name='set_priority']").value);
         var taskDeadline = event.target.parentElement.parentElement.querySelector(".new_task input[type='date']").value;
 
-        // Create a new list item
-        var newListItem = document.createElement("li");
-        newListItem.setAttribute("draggable", "true")
-        newListItem.setAttribute("ondragstart", "dragStart(event)")
-        newListItem.className = "tasks_item";
+        const sectionCreate = parseInt(item.closest("section").id.replace("s", ""));
 
-        newListItem.innerHTML = `<div class="task ${taskPriority}"> <article>${taskName}</article> <p>${taskDescription}</p> <p>${taskDeadline}</p> </div><div class="task_buttons"> <div class="done_task"></div> <div class="edit_task"></div> <div class="trash_task"></div> </div>`;
+        board.projects[currentProjectID].sections[sectionCreate].tasks.push({
+            data: taskDeadline,
+            description: taskDescription,
+            isComplete: false,
+            name: taskName,
+            priority: taskPriority,
+        });
+        setBoardData(board, userData);
 
-        event.target.parentElement.parentElement.parentElement.appendChild(newListItem);
-        // addEventListenersToNewElements();
-
-
-        event.target.closest(".new_task").remove();
-
-        const newButton = document.createElement("button");
-        newButton.className = "add_task";
-        newButton.innerText = "add task";
-        const section = newListItem.closest('section');
-        section.appendChild(newButton)
-        // done_task_event()
-        button_check()
-        newListItem.querySelector(".done_task").addEventListener("click", addEvent);
-        console.log(event.target.parentElement)
-        // .querySelector(".done_task").addEventListener("click", addEvent);
-        newListItem.querySelector(".trash_task").addEventListener("click", trashEvent);
-        newListItem.querySelector(".edit_task").addEventListener("click", editEvent);
-        // console.log(event.target.closest(".done_task").value)
-        // trash_task_event()
     }));
 }
 
@@ -138,7 +105,7 @@ function cancel_edit_task_event() {
         const section = event.target.closest('section');
 
         event.target.closest(".new_task").remove();
-        
+
 
         // const newButton = document.createElement("button");
         // newButton.className = "add_task";
@@ -171,9 +138,11 @@ function addEvent(event) {
     event.preventDefault(); // Prevent form submission
     if (event.target.classList.contains("done_task")) {
         event.target.classList.replace("done_task", "cross_task");
-        event.target.parentElement.parentElement.querySelector(".task").classList.replace("task", "complete_task")
+        //получить id текущего section; получить id текущий task; заменить в board.projects[currenP..].sections[idSection].tasks[idTask].isComplete = true
+        event.target.parentElement.parentElement.querySelector(".task").id.classList.replace("task", "complete_task")
 
     } else {
+        // тоже самое только для false
         event.target.parentElement.parentElement.querySelector(".complete_task").classList.replace("complete_task", "task")
         event.target.classList.replace("cross_task", "done_task");
     }
@@ -184,7 +153,6 @@ export function done_task_event() {
 }
 export function trash_task_event() {
     document.querySelectorAll(".trash_task").forEach(item => item.addEventListener("click", trashEvent))
-
 }
 
 export function edit_task_event() {
@@ -223,26 +191,14 @@ function editEvent(event) {
 
               <button class="cancel_edit_task">cancel</button>
             </div>`
-    // item.innerHTML = `<input placeholder="task name" value="${taskName}">
-    // <textarea placeholder="task description">${taskDescription}</textarea>
-    // <select name="set_priority" class="priority">
-    //   <option value="" disabled selected hidden>Set priority</option>
-    //   <option value="critical_priority">Criticial priority</option>
-    //   <option value="high_priority">High priority</option>
-    //   <option value="medium_priority">Medium priority</option>
-    //   <option value="low_priority">Low priority</option>
-    // </select>
-    // <input type="date" placeholder="task deadline" value="${deadline}"></input>
-    // <div class="buttons">
-    //   <button class="create_task">add task</button>
-
-    //   <button class="cancel_task">cancel</button>
-    // </div>`;
-    // setBoardData(board, userData);
+    
     save_task_event();
     cancel_edit_task_event();
     edit_task_event();
     button_check();
+
+
+
 }
 function editForm() {
 
@@ -251,8 +207,10 @@ function trashEvent(event) {
 
     console.log("trash_task pressed");
     // event.preventDefault(); // Prevent form submission
-    event.target.parentElement.parentElement.remove();
-    // setBoardData(board, userData);
+    const sectionCreate = parseInt(event.target.closest("section").id.replace("s", ""));
+    const taskCreate = parseInt(event.target.closest("li").id.replace("t", ""));
+    board.projects[currentProjectID].sections[sectionCreate].tasks.splice(taskCreate,1);
+    setBoardData(board, userData);
 
 };
 //------------------------------------------
@@ -260,8 +218,9 @@ function trashSectionEvent(event) {
 
     console.log("trash section pressed");
     // event.preventDefault(); // Prevent form submission
-    event.target.parentElement.parentElement.remove();
-    // setBoardData(board, userData);
+    const sectionCreate = parseInt(event.target.closest("section").id.replace("s", ""));
+    board.projects[currentProjectID].sections.splice(sectionCreate,1);
+    setBoardData(board, userData);
 
 };
 
@@ -271,26 +230,24 @@ export function trash_section_event() {
 //------------------------------------------
 
 export function create_section_event() {
-    document.querySelector("#new_topic").addEventListener("click", createSection);
+    document.querySelector("#new_section").addEventListener("click", createSection);
 }
 function createSection(event) {
-    console.log("new topic button pressed");
-    var section = document.createElement("section");
-    section.classList.add("column");
-    section.setAttribute("draggable", "true")
-    section.innerHTML = `<div class="header_section">
-                            <article>new topic</article>
-                            <div class="edit"></div>
-                            <div class="delete"></div>
-                        </div>
-                        <button class="add_task">add task</button>`;
-    section.querySelector(".delete").addEventListener("click", trashSectionEvent);
-    var ul = document.querySelector("#tasks_list");
-    ul.appendChild(section);
-    button_check()
-    //setboardData(board, userData);
+    board.projects[currentProjectID].sections.push({
+        name : "new section",
+        tasks : [],
+    });
+    setBoardData(board, userData);
 }
 
-// button_check()
 
-
+export function butttonFunctionality() {
+    console.log("button functionality");
+    button_check();
+    create_task_event();
+    cancel_task_event();
+    done_task_event();
+    trash_task_event();
+    edit_task_event();
+    create_section_event();
+}

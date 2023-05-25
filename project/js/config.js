@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-import { ChangeBoard } from "./main.js";
-import {trash_section_event, button_check, create_task_event, cancel_task_event,  done_task_event, trash_task_event, edit_task_event, create_section_event } from "./buttons.js"
+import { ChangeBoard } from "./index.js";
+import { butttonFunctionality } from "./buttons.js"
 
 import {
     getAuth,
@@ -63,49 +63,31 @@ export const monitorAuthState = async (setUserData, callback) =>
                 // isSignedIn: true,
                 name: user.email,
             });
+            
             callback();
         } else {
             console.log("no user");
             setUserData({});
         }
     });
-export async function monitorBoardState(board, user, callback) {
-        console.log("catched");
-        const dbRef = ref(getDatabase(), 'boards/' + user.id);
-        onValue(dbRef, (snapshot) => {
-            if (snapshot.exists()) {
-                callback(snapshot.val());
-            } else {
-                console.log("No data available");
-            }
 
-        });
-}
+
 export async function getBoardData(user) {
-    
     const db = getDatabase();
-    const Ref = ref(db, 'boards/' + user.id);
+    const Ref = ref(db, 'boards/');
+    
     onValue(Ref, (snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
             console.log(data);
             ChangeBoard(data);
             console.log("data rendered//getboarddata");
-            create_section_event();
-            trash_section_event();
-    button_check();
-    create_task_event();
 
-    cancel_task_event();
-    // enableDnD();
-    done_task_event();
-    trash_task_event();
-    edit_task_event();
-           
+
         } else {
             console.log("No data available");
         }
-  
+
     });
 }
 
@@ -115,6 +97,7 @@ export function setBoardData(board, user) {
     console.log("set board data")
     const db = getDatabase();
     const reference = ref(db, 'boards/' + user.id);
+    console.log(user.id);
     set(reference, {
         board: board
     });
