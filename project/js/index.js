@@ -16,7 +16,7 @@ export const addOnClick = (id, callback) => {
 const setUserData = (newData) => {
     userData = JSON.parse(JSON.stringify(newData));
     console.log(newData);
-}
+};
 
 
 monitorAuthState(setUserData, function(){

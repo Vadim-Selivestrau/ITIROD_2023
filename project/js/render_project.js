@@ -1,5 +1,3 @@
-
-
 export function renderProject(sections) {
 
   var message = `<ul id="tasks_list">`;
@@ -51,9 +49,7 @@ export function renderProject(sections) {
     message += `<button class="add_task">add task</button>`;
     message += `</section>`;
   });
-
-
-
   message += '</ul>';
   return message;
 }
+

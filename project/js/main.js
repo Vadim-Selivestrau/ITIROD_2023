@@ -1,7 +1,8 @@
 import { addOnClick, userData } from "./index.js";
-import { setBoardData, signOutFromApp } from "./config.js";
+import { getBoardData, setBoardData, signOutFromApp } from "./config.js";
 import { renderProject } from "./render_project.js";
-import { button_check, create_task_event, cancel_task_event } from "./buttons.js"
+import { renderTopics } from "./render_topics.js";
+import {create_task_event, cancel_task_event, done_task_event, trash_task_event, edit_task_event, create_section_event} from "./buttons.js"
 // import { enableDnD } from "./drag_n_drop.js";
 
 
@@ -52,17 +53,39 @@ let board = {
         }
     ]
 }
+export const ChangeBoard = (data) => {
 
-setBoardData(board, userData)
+    board = data.board;
+    var tasks = document.getElementsByClassName("tasks")[0];
+    var topics = document.getElementById("my_tasks");
+    topics.innerHTML = renderTopics(board);
+    tasks.innerHTML = renderProject(board.projects[0].sections);
 
-var tasks = document.getElementsByClassName("tasks")[0];
-tasks.innerHTML = renderProject(board.projects[0].sections);
-button_check();
-create_task_event();
+}
 
-cancel_task_event();
-// enableDnD();
-// done_task_event();
+    // create_task_event();
+    
+    // cancel_task_event();
+    // // enableDnD();
+    // done_task_event();
+    // trash_task_event();
+    // edit_task_event();
+// setBoardData(board,userData);
+
+getBoardData(userData);
+    // create_task_event();
+    
+    // cancel_task_event();
+    // // enableDnD();
+    // done_task_event();
+    // trash_task_event();
+    // edit_task_event();
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//set board data, after changing setBoardData(userData);
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// console.log("before buttons chesk")
+
+
 addOnClick("header_link", (e) => {
 
     e.preventDefault();
@@ -70,3 +93,8 @@ addOnClick("header_link", (e) => {
     window.location.href = 'login.html';
 
 });
+
+
+
+
+export {board};
