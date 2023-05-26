@@ -2,6 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebas
 import { ChangeBoard } from "./index.js";
 import { butttonFunctionality } from "./buttons.js"
 
+var currentProjectID = 0;
 import {
     getAuth,
     connectAuthEmulator,
@@ -79,9 +80,10 @@ export async function getBoardData(user) {
     onValue(Ref, (snapshot) => {
         if (snapshot.exists()) {
             const data = snapshot.val();
-            console.log(data);
+            console.log(data.board)
+            //console.log(data);
             ChangeBoard(data);
-            console.log("data rendered//getboarddata");
+            //console.log("data rendered//getboarddata");
 
 
         } else {
@@ -95,10 +97,12 @@ export async function getBoardData(user) {
 
 export function setBoardData(board, user) {
     console.log("set board data")
+    //currentProjectID = curProjID;
     const db = getDatabase();
-    const reference = ref(db, 'boards/' + user.id);
-    console.log(user.id);
+    const reference = ref(db, 'boards/'/* + user.id*/);
+    // console.log(user.id);
     set(reference, {
         board: board
     });
 }
+export {currentProjectID};

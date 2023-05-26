@@ -1,12 +1,13 @@
 import {
-    monitorAuthState
+    getBoardData,
+    monitorAuthState, currentProjectID
 } from "./config.js";
 import { renderProject } from "./render_project.js";
 import { renderTopics } from "./render_topics.js";
-import {butttonFunctionality} from "./buttons.js"
+import { butttonFunctionality } from "./buttons.js"
 
 let board;
-let currentProjectID;
+getBoardData();
 let userData;
 export const addOnSubmit = (id, callback) => {
     document.getElementById(id).addEventListener("submit", callback);
@@ -25,10 +26,9 @@ export const ChangeBoard = (data) => {
     var tasks = document.getElementsByClassName("tasks")[0];
     var topics = document.getElementById("my_tasks");
     topics.innerHTML = renderTopics(board);
-    tasks.innerHTML = renderProject(board.projects[0].sections);
+    tasks.innerHTML = renderProject(board.projects[currentProjectID].sections);
     butttonFunctionality();
 }
 
-  export {userData};
-  export {board};
-  export {currentProjectID};
+export { userData };
+export { board };

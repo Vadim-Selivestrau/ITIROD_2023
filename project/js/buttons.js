@@ -1,5 +1,5 @@
-import { setBoardData } from "./config.js";
-import { userData, board, currentProjectID } from "./index.js";
+import { getBoardData, setBoardData,currentProjectID } from "./config.js";
+import { userData, board, ChangeBoard } from "./index.js";
 
 
 
@@ -45,22 +45,20 @@ export function button_check() {
         });
     });
 
-    // setBoardData(board, userData);
 }
 function save_task_event() {
     document.querySelectorAll(".save_task").forEach(item => item.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault(); 
         console.log("save task button pressed");
-        // Get form values
+
         var taskName = event.target.parentElement.parentElement.querySelector(".new_task input[placeholder='task name']").value;
         var taskDescription = event.target.parentElement.parentElement.querySelector(".new_task textarea[placeholder='task description']").value;
         var taskPriority = event.target.parentElement.parentElement.querySelector(".new_task select[name='set_priority']").value;
         var taskDeadline = event.target.parentElement.parentElement.querySelector(".new_task input[type='date']").value;
 
-        // Create a new list item
         const sectionCreate = parseInt(item.closest("section").id.replace("s", ""));
         const taskCreate = parseInt(item.closest("li").id.replace("t", ""));
-        board.projects[currentProjectID].sections[sectionCreate].tasks[taskCreate]={
+        board.projects[currentProjectID].sections[sectionCreate].tasks[taskCreate] = {
             data: taskDeadline,
             description: taskDescription,
             isComplete: false,
@@ -70,7 +68,7 @@ function save_task_event() {
 
         setBoardData(board, userData);
 
- 
+
     }));
 }
 export function create_task_event() {
@@ -84,7 +82,10 @@ export function create_task_event() {
         var taskDeadline = event.target.parentElement.parentElement.querySelector(".new_task input[type='date']").value;
 
         const sectionCreate = parseInt(item.closest("section").id.replace("s", ""));
-
+        console.log("-----------------------------------------------------------");
+        console.log(sectionCreate);
+        console.log(board.projects[currentProjectID].sections[sectionCreate].tasks);
+        console.log("-----------------------------------------------------------");
         board.projects[currentProjectID].sections[sectionCreate].tasks.push({
             data: taskDeadline,
             description: taskDescription,
@@ -107,12 +108,6 @@ function cancel_edit_task_event() {
         event.target.closest(".new_task").remove();
 
 
-        // const newButton = document.createElement("button");
-        // newButton.className = "add_task";
-        // newButton.innerText = "add task";
-        // console.log(section)
-        // section.appendChild(newButton)
-        // button_check()
     }));
 }
 export function cancel_task_event() {
@@ -135,18 +130,16 @@ export function cancel_task_event() {
 }
 function addEvent(event) {
     console.log("done task pressed");
+    const currentSection = parseInt(event.target.closest("section").id.replace("s", ""));
+    const currentTask = parseInt(event.target.closest("li").id.replace("t", ""));
     event.preventDefault(); // Prevent form submission
     if (event.target.classList.contains("done_task")) {
-        event.target.classList.replace("done_task", "cross_task");
-        //получить id текущего section; получить id текущий task; заменить в board.projects[currenP..].sections[idSection].tasks[idTask].isComplete = true
-        event.target.parentElement.parentElement.querySelector(".task").id.classList.replace("task", "complete_task")
-
+        board.projects[currentProjectID].sections[currentSection].tasks[currentTask].isComplete = true
     } else {
-        // тоже самое только для false
-        event.target.parentElement.parentElement.querySelector(".complete_task").classList.replace("complete_task", "task")
-        event.target.classList.replace("cross_task", "done_task");
+        board.projects[currentProjectID].sections[currentSection].tasks[currentTask].isComplete = false
+
     }
-    // setBoardData(board, userData);
+    setBoardData(board, userData);
 }
 export function done_task_event() {
     document.querySelectorAll(".done_task, .cross_task").forEach(item => item.addEventListener("click", addEvent));
@@ -175,7 +168,6 @@ function editEvent(event) {
     const form = document.createElement('form');
     item.className = "new_task";
 
-    // Пример добавления полей в форму
     item.innerHTML = `<input placeholder="task name" value="${taskName}">
             <textarea placeholder="task description">${taskDescription}</textarea>
             <select name="set_priority" class="priority">
@@ -191,7 +183,7 @@ function editEvent(event) {
 
               <button class="cancel_edit_task">cancel</button>
             </div>`
-    
+
     save_task_event();
     cancel_edit_task_event();
     edit_task_event();
@@ -206,10 +198,11 @@ function editForm() {
 function trashEvent(event) {
 
     console.log("trash_task pressed");
-    // event.preventDefault(); // Prevent form submission
+
     const sectionCreate = parseInt(event.target.closest("section").id.replace("s", ""));
     const taskCreate = parseInt(event.target.closest("li").id.replace("t", ""));
-    board.projects[currentProjectID].sections[sectionCreate].tasks.splice(taskCreate,1);
+
+    board.projects[currentProjectID].sections[sectionCreate].tasks.splice(taskCreate, 1);
     setBoardData(board, userData);
 
 };
@@ -217,14 +210,16 @@ function trashEvent(event) {
 function trashSectionEvent(event) {
 
     console.log("trash section pressed");
-    // event.preventDefault(); // Prevent form submission
     const sectionCreate = parseInt(event.target.closest("section").id.replace("s", ""));
-    board.projects[currentProjectID].sections.splice(sectionCreate,1);
+    console.log(board.projects[currentProjectID].sections[sectionCreate]);
+    board.projects[currentProjectID].sections.splice(sectionCreate, 1);
     setBoardData(board, userData);
 
 };
 
 export function trash_section_event() {
+    console.log("trash section pressed");
+
     document.querySelectorAll(".delete").forEach(item => item.addEventListener("click", trashSectionEvent))
 }
 //------------------------------------------
@@ -234,15 +229,54 @@ export function create_section_event() {
 }
 function createSection(event) {
     board.projects[currentProjectID].sections.push({
-        name : "new section",
-        tasks : [],
+        name: "new section",
+        tasks: [
+            {
+                "data": "12.05.2023",
+                "description": "Change me!!!",
+                "isComplete": false,
+                "name": "you create a new section",
+                "priority": 1
+            },
+        ],
     });
     setBoardData(board, userData);
 }
+//----------------------------------------
+export function create_topic_event() {
+    document.querySelector("#new_topic").addEventListener("click", createTopic);
+}
+function createTopic(event) {
+    board.projects.push({
+        name: "hello",
+        sections: [
+            {
+                name: "new sections",
+                tasks: [
+                    {
+                        "data": "12.05.2023",
+                        "description": "Change me!!!",
+                        "isComplete": false,
+                        "name": "you create a new section",
+                        "priority": 1
+                    },
+                ],
+            }
+        ],
 
-
+    });
+    setBoardData(board, userData);
+}
+//----------------------------------------
+export function render_topic_event() {
+    document.querySelectorAll(".item_collection").forEach(item => item.addEventListener("click", rendetTopic))
+}
+function rendetTopic(event) {    
+    console.log(event.target.parentElement.id.replace("i", ""));
+    // currentProjectID = parseInt(event.target.parentElement.id.replace("i", ""))
+    setBoardData(board, userData);
+}
 export function butttonFunctionality() {
-    console.log("button functionality");
     button_check();
     create_task_event();
     cancel_task_event();
@@ -250,4 +284,7 @@ export function butttonFunctionality() {
     trash_task_event();
     edit_task_event();
     create_section_event();
+    trash_section_event();
+    create_topic_event();
+    render_topic_event();
 }
