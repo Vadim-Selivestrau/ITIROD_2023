@@ -8,7 +8,7 @@ export function renderProject(sections) {
           <article>${element.name}</article>
           <div class="edit"></div>
           <div class="delete"></div>
-        </div>`
+        </div>`;
     if ("tasks" in element) {
       for (var j = 0; j < element.tasks.length; j++) {
         var dotherElement = element.tasks[j];
@@ -21,10 +21,10 @@ export function renderProject(sections) {
             priority = "high_priority";
             break;
           case 3:
-            priority = "medium_priority"
+            priority = "medium_priority";
             break;
           case 4:
-            priority = "low_priority"
+            priority = "low_priority";
             break;
           default:
             priority = "critical_priority";
@@ -32,8 +32,8 @@ export function renderProject(sections) {
         var isComplete = "task";
         var button_style = "done_task";
         if (dotherElement.isComplete) {
-          isComplete = "complete_task"
-          button_style = "cross_task"
+          isComplete = "complete_task";
+          button_style = "cross_task";
         }
         message += `<li class="tasks_item" draggable="true" ondragstart="dragStart(event)" id="t${j}">
           <div class="${isComplete} ${priority}">
@@ -47,13 +47,12 @@ export function renderProject(sections) {
             <div class="trash_task"></div>
 
           </div>
-        </li>`
+        </li>`;
       }
     }
     message += `<button class="add_task">add task</button>`;
     message += `</section>`;
-  };
-  message += '</ul>';
+  }
+  message += "</ul>";
   return message;
 }
-
