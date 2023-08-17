@@ -1,11 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
-import { ChangeBoard } from "./index.js";
-import { butttonFunctionality } from "./buttons.js"
-
-var currentProjectID = 0;
 import {
     getAuth,
-    connectAuthEmulator,
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
     onAuthStateChanged,
@@ -16,8 +11,10 @@ import {
     onValue,
     ref,
     set,
-    remove
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-database.js"
+import { ChangeBoard } from "./index.js";
+
+var currentProjectID = 0;
 const firebaseConfig = {
     apiKey: "AIzaSyDsha8Ye20mpDDv1539qLl13nNmNkM8Btg",
     authDomain: "todo-app-a943c.firebaseapp.com",
@@ -81,11 +78,7 @@ export async function getBoardData(user) {
         if (snapshot.exists()) {
             const data = snapshot.val();
             console.log(data.board)
-            //console.log(data);
             ChangeBoard(data);
-            //console.log("data rendered//getboarddata");
-
-
         } else {
             console.log("No data available");
         }
@@ -97,10 +90,8 @@ export async function getBoardData(user) {
 
 export function setBoardData(board, user) {
     console.log("set board data")
-    //currentProjectID = curProjID;
     const db = getDatabase();
-    const reference = ref(db, 'boards/'/* + user.id*/);
-    // console.log(user.id);
+    const reference = ref(db, 'boards/');
     set(reference, {
         board: board
     });

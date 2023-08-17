@@ -1,5 +1,5 @@
-import { getBoardData, setBoardData,currentProjectID } from "./config.js";
-import { userData, board, ChangeBoard } from "./index.js";
+import { setBoardData, currentProjectID } from "./config.js";
+import { userData, board } from "./index.js";
 
 
 

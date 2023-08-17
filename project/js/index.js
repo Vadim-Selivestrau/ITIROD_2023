@@ -1,6 +1,6 @@
 import {
     getBoardData,
-    monitorAuthState, currentProjectID
+    currentProjectID
 } from "./config.js";
 import { renderProject } from "./render_project.js";
 import { renderTopics } from "./render_topics.js";
