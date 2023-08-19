@@ -17,6 +17,7 @@ const bind = (path, callback) => {
   onValue(reference, (snapshot) => {
     if (!snapshot.exists()) {
       console.error("No data available");
+      callback({projects: []})
     }
 
     const data = snapshot.val();
