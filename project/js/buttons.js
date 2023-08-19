@@ -1,5 +1,7 @@
-import { setBoardData, currentProjectID } from "./config.js";
-import { userData, board } from "./index.js";
+import { board, dbPath } from "./main.js";
+import { write } from "./db.js";
+
+let currentProjectID = 0;
 
 export function button_check() {
   console.log("Button check start");
@@ -77,7 +79,7 @@ function save_task_event() {
         priority: taskPriority,
       };
 
-      setBoardData(board, userData);
+      write(dbPath, board);
     })
   );
 }
@@ -123,7 +125,7 @@ export function create_task_event() {
         name: taskName,
         priority: taskPriority,
       });
-      setBoardData(board, userData);
+      write(dbPath, board);
     })
   );
 }
@@ -175,7 +177,7 @@ function addEvent(event) {
       currentTask
     ].isComplete = false;
   }
-  setBoardData(board, userData);
+  write(dbPath, board);
 }
 export function done_task_event() {
   document
@@ -241,7 +243,7 @@ function trashEvent(event) {
     taskCreate,
     1
   );
-  setBoardData(board, userData);
+  write(dbPath, board);
 }
 //------------------------------------------
 function trashSectionEvent(event) {
@@ -251,7 +253,7 @@ function trashSectionEvent(event) {
   );
   console.log(board.projects[currentProjectID].sections[sectionCreate]);
   board.projects[currentProjectID].sections.splice(sectionCreate, 1);
-  setBoardData(board, userData);
+  write(dbPath, board);
 }
 
 export function trash_section_event() {
@@ -281,7 +283,7 @@ function createSection(event) {
       },
     ],
   });
-  setBoardData(board, userData);
+  write(dbPath, board);
 }
 //----------------------------------------
 export function create_topic_event() {
@@ -305,7 +307,7 @@ function createTopic(event) {
       },
     ],
   });
-  setBoardData(board, userData);
+  write(dbPath, board);
 }
 //----------------------------------------
 export function render_topic_event() {
@@ -316,7 +318,7 @@ export function render_topic_event() {
 function rendetTopic(event) {
   console.log(event.target.parentElement.id.replace("i", ""));
   // currentProjectID = parseInt(event.target.parentElement.id.replace("i", ""))
-  setBoardData(board, userData);
+  write(dbPath, {board: board})
 }
 export function butttonFunctionality() {
   button_check();

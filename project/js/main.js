@@ -1,19 +1,29 @@
-import { addOnClick, userData } from "./index.js";
-import { getBoardData, setBoardData, signOutFromApp } from "./config.js";
-import { renderProject } from "./render_project.js";
-import { renderTopics } from "./render_topics.js";
+import { addOnClick } from "./index.js";
+import { renderProject, renderTopics } from "./render.js";
+import { signOutFromApp } from "./auth.js";
+import { read, bind } from "./db.js";
 
-getBoardData(userData);
+let board = null;
 
+const ChangeBoard = (data) => {
+  console.log(data);
+  board = data;
+  
+  let tasks = document.getElementsByClassName("tasks")[0];
+  let topics = document.getElementById("my_tasks");
+  
+  topics.innerHTML = renderTopics(board);
+  tasks.innerHTML = renderProject(board.projects[0].sections);
+};
+
+const currentUser = await read("currentUser/");
+const dbPath = `boards/${currentUser.id}`;
+
+bind(dbPath, ChangeBoard);
 addOnClick("header_link", (e) => {
   e.preventDefault();
   signOutFromApp();
   window.location.href = "login.html";
 });
-export const ChangeBoard = (data) => {
-  board = data.board;
-  var tasks = document.getElementsByClassName("tasks")[0];
-  var topics = document.getElementById("my_tasks");
-  topics.innerHTML = renderTopics(board);
-  tasks.innerHTML = renderProject(board.projects[0].sections);
-};
+
+export { dbPath, board };

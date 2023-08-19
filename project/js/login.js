@@ -1,14 +1,17 @@
-import { signInWithEmail } from "./config.js";
+import { signInWithEmail, monitorAuthState } from "./auth.js";
 import { addOnSubmit } from "./index.js";
-import { monitorAuthState } from "./config.js";
-import { setUserData } from "./index.js";
+import { write } from "./db.js";
 
 const login = document.getElementById("login");
 const password = document.getElementById("password");
 
+const setUserData = (newData) => {
+  write("currentUser/", newData);
+};
+
 addOnSubmit("login_user", (e) => {
   e.preventDefault();
-  signInWithEmail(login.value, password.value);
+  setUserData(signInWithEmail(login.value, password.value));
 });
 
 monitorAuthState(setUserData, function () {
@@ -17,3 +20,6 @@ monitorAuthState(setUserData, function () {
     window.location.href = "main.html";
   }
 });
+
+
+export { setUserData };

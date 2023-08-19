@@ -1,10 +1,11 @@
-import { signUpWithEmail } from "./config.js";
+import { signUpWithEmail } from "./auth.js";
 import { addOnSubmit } from "./index.js";
+import { setUserData } from "./login.js";
 
 const login = document.getElementById("login");
 const password = document.getElementById("password");
 
 addOnSubmit("create_account", (e) => {
   e.preventDefault();
-  signUpWithEmail(login.value, password.value);
+  setUserData(signUpWithEmail(login.value, password.value));
 });
